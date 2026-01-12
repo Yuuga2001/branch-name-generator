@@ -2,15 +2,19 @@ import OpenAI from "openai";
 
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
-const openai = new OpenAI({
-    apiKey: API_KEY,
-    dangerouslyAllowBrowser: true
-});
+// Remove top-level initialization
+// const openai = new OpenAI({ ... });
 
 export async function generateBranchNames(description, options) {
     if (!API_KEY) {
-        throw new Error("API Key is missing. Please check your .env file.");
+        throw new Error("API Key is missing. Please check your .env file or deployment settings.");
     }
+
+    // Initialize OpenAI client lazily to prevent top-level crashes if key is missing
+    const openai = new OpenAI({
+        apiKey: API_KEY,
+        dangerouslyAllowBrowser: true
+    });
 
     const { prefix, caseStyle, separator, includeTicket, ticketNumber, useHashPrefix, ticketSeparator } = options;
 
