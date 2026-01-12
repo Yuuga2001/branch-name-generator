@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npm ci
+        - echo "VITE_OPENAI_API_KEY=$VITE_OPENAI_API_KEY" >> .env
     build:
       commands:
         - npm run build

@@ -1,1 +1,0 @@
-import OpenAI from 'openai'; const client = new OpenAI({ apiKey: '***REMOVED***' }); client.chat.completions.create({ messages: [{ role: 'user', content: 'Say hello' }], model: 'gpt-3.5-turbo' }).then(console.log).catch(console.error);
