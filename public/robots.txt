@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://branch-name-generator.amplifyapp.com/sitemap.xml
