@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './OptionsPanel.css';
-import { FaCodeBranch, FaBug, FaFire, FaLightbulb, FaExchangeAlt } from 'react-icons/fa';
+import { FaCodeBranch, FaBug, FaFire, FaLightbulb } from 'react-icons/fa';
 
 const PREFIXES = [
     { label: 'feature', value: 'feature/', icon: <FaLightbulb /> },
@@ -21,6 +21,47 @@ const CASES = [
 const OptionsPanel = ({ options, setOptions }) => {
     const [customPrefix, setCustomPrefix] = useState('');
 
+    // Case Styleに応じたslugを生成
+    const formatSlug = (caseStyle, separator) => {
+        switch (caseStyle) {
+            case 'camelCase':
+                return 'hogeHoge';
+            case 'PascalCase':
+                return 'HogeHoge';
+            case 'snake_case':
+                return `hoge${separator}hoge`;
+            case 'kebab-case':
+                return `hoge${separator}hoge`;
+            case 'UPPER_CASE':
+                return `HOGE${separator}HOGE`;
+            case 'lower case':
+                return `hoge${separator}hoge`;
+            default:
+                return `hoge${separator}hoge`;
+        }
+    };
+
+    // プレビュー用のブランチ名を生成
+    const previewBranchName = useMemo(() => {
+        let preview = '';
+
+        // 1. Prefix
+        if (options.prefix && options.prefix !== 'none') {
+            preview += options.prefix;
+        }
+
+        // 2. Ticket Number
+        if (options.includeTicket && options.ticketNumber) {
+            const hashPart = options.useHashPrefix ? '#' : '';
+            preview += `${hashPart}${options.ticketNumber}${options.ticketSeparator}`;
+        }
+
+        // 3. Slug (Case StyleとSeparatorを反映)
+        preview += formatSlug(options.caseStyle, options.separator);
+
+        return preview;
+    }, [options]);
+
     const handlePrefixChange = (val) => {
         setOptions({ ...options, prefix: val });
         if (!PREFIXES.find(p => p.value === val)) {
@@ -38,6 +79,12 @@ const OptionsPanel = ({ options, setOptions }) => {
 
     return (
         <div className="options-panel glass">
+            {/* プレビュー表示 */}
+            <div className="preview-section">
+                <span className="preview-label">Output Format:</span>
+                <code className="preview-value">{previewBranchName}</code>
+            </div>
+
             <div className="option-group">
                 <label className="option-label">Prefix</label>
                 <div className="prefix-grid">
