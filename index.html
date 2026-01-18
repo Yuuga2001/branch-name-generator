@@ -3,31 +3,92 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Favicon & Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
   <!-- Primary Meta Tags -->
-  <title>Git Branch Name Generator - AIでブランチ名を自動生成</title>
-  <meta name="description" content="AIを使って、開発タスクの説明から適切なGitブランチ名を自動生成します。チケット番号や命名規則のカスタマイズも可能。開発効率を上げる便利ツール。" />
-  <meta name="keywords" content="git, branch name, generator, AI, 命名規則, 開発ツール, ブランチ名" />
+  <title>Git Branch Name Generator | AIでブランチ名を自動生成 - 開発効率化ツール</title>
+  <meta name="description" content="AIがタスク説明から最適なGitブランチ名を5つ提案。日本語・英語対応。feature/fix/hotfixなどのプレフィックス、kebab-case/snake_caseなどの命名規則、チケット番号の自動挿入に対応。チーム開発の命名規則統一に。" />
+  <meta name="keywords" content="git branch name generator, ブランチ名 自動生成, AI, 命名規則, 開発ツール, feature branch, kebab-case, snake_case, Jira, GitHub Issue, チケット番号, 開発効率化" />
+  <meta name="author" content="Branch Name Generator" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#6366f1" />
+
+  <!-- Canonical & Language Alternates -->
+  <link rel="canonical" href="https://branch-name-generator.amplifyapp.com/" />
+  <link rel="alternate" hreflang="ja" href="https://branch-name-generator.amplifyapp.com/" />
+  <link rel="alternate" hreflang="en" href="https://branch-name-generator.amplifyapp.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://branch-name-generator.amplifyapp.com/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://branch-name-generator.amplifyapp.com/" />
-  <meta property="og:title" content="Git Branch Name Generator - AIでブランチ名を自動生成" />
-  <meta property="og:description" content="開発タスクの説明から最適なGitブランチ名をAIが提案。チケット番号対応。命名規則の統一をサポートします。" />
+  <meta property="og:title" content="Git Branch Name Generator | AIでブランチ名を自動生成" />
+  <meta property="og:description" content="AIがタスク説明から最適なGitブランチ名を提案。日本語対応・チケット番号挿入・命名規則カスタマイズ可能。チーム開発の効率化に。" />
   <meta property="og:image" content="https://branch-name-generator.amplifyapp.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Git Branch Name Generator - AIでブランチ名を自動生成するツールのスクリーンショット" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="Git Branch Name Generator" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://branch-name-generator.amplifyapp.com/" />
-  <meta property="twitter:title" content="Git Branch Name Generator" />
-  <meta property="twitter:description" content="開発タスクの説明から最適なGitブランチ名をAIが提案。" />
-  <meta property="twitter:image" content="https://branch-name-generator.amplifyapp.com/og-image.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://branch-name-generator.amplifyapp.com/" />
+  <meta name="twitter:title" content="Git Branch Name Generator | AIでブランチ名を自動生成" />
+  <meta name="twitter:description" content="AIがタスク説明から最適なGitブランチ名を提案。日本語対応・チケット番号挿入・命名規則カスタマイズ可能。" />
+  <meta name="twitter:image" content="https://branch-name-generator.amplifyapp.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Git Branch Name Generator - AIでブランチ名を自動生成" />
 
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Git Branch Name Generator",
+      "alternateName": "ブランチ名ジェネレーター",
+      "description": "AIを活用してタスク説明から最適なGitブランチ名を自動生成するWebアプリケーション。日本語・英語対応、チケット番号挿入、命名規則カスタマイズ機能を搭載。",
+      "url": "https://branch-name-generator.amplifyapp.com/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "AIによるブランチ名自動生成",
+        "日本語・英語対応",
+        "チケット番号挿入（Jira, GitHub Issue）",
+        "命名規則カスタマイズ（kebab-case, snake_case, camelCase等）",
+        "リアルタイムプレビュー",
+        "ワンクリックコピー"
+      ],
+      "screenshot": "https://branch-name-generator.amplifyapp.com/screenshot.png",
+      "image": "https://branch-name-generator.amplifyapp.com/og-image.png",
+      "author": {
+        "@type": "Organization",
+        "name": "Branch Name Generator"
+      },
+      "inLanguage": ["ja", "en"]
+    }
+  </script>
 
-  <link rel="canonical" href="https://branch-name-generator.amplifyapp.com/" />
+  <!-- WebSite Schema for Search Box -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Git Branch Name Generator",
+      "url": "https://branch-name-generator.amplifyapp.com/",
+      "description": "AIでGitブランチ名を自動生成する開発者向けツール",
+      "inLanguage": ["ja", "en"]
+    }
+  </script>
 </head>
 
 <body>
