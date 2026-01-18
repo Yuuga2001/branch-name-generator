@@ -3,7 +3,7 @@
 タスクの説明文を入力するだけで、AIが最適なGitブランチ名を提案してくれるReactアプリケーションです。
 曖昧なタスク内容でも、開発の文脈を理解して「feature/」や「fix/」などの適切なプレフィックスと共に、命名規則に沿ったブランチ名を生成します。
 
-![App Screenshot](./branch-name.png)
+![App Screenshot](./public/screenshot.png)
 
 ## ✨主な機能
 
