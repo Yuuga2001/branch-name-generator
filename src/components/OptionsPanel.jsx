@@ -4,9 +4,9 @@ import { FaCodeBranch, FaBug, FaFire, FaLightbulb } from 'react-icons/fa';
 
 const PREFIXES = [
     { label: 'feature', value: 'feature/', icon: <FaLightbulb /> },
-    { label: 'fix', value: 'fix/', icon: <FaBug /> },
+    { label: 'bugfix', value: 'bugfix/', icon: <FaBug /> },
     { label: 'hotfix', value: 'hotfix/', icon: <FaFire /> },
-    { label: 'chore', value: 'chore/', icon: <FaCodeBranch /> },
+    { label: 'fix', value: 'fix/', icon: <FaCodeBranch /> },
 ];
 
 const CASES = [

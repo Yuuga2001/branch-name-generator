@@ -32,7 +32,7 @@ export async function generateBranchNames(description, options) {
     - For example: "ログイン機能の修正" should become "fix-login" or "login-fix", NOT "login-kinou-no-shuusei".
 
     DEFINITION: A "slug" is just the descriptive part of the branch name.
-    - DO NOT include the prefix (e.g., do NOT start with "feature/" or "fix/").
+    - DO NOT include the prefix (e.g., do NOT start with "feature/" or "bugfix/" or "fix/").
     - DO NOT include ticket numbers.
     - ONLY output the descriptive words joined by the separator.
 
