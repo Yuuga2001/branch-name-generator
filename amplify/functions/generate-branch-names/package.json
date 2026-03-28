@@ -1,0 +1,7 @@
+{
+  "name": "generate-branch-names",
+  "type": "module",
+  "dependencies": {
+    "openai": "^6.16.0"
+  }
+}

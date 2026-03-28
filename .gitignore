@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Amplify Gen 2
+amplify_outputs.json
+amplify_outputs.d.ts
+.amplify/
