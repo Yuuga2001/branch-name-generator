@@ -81,11 +81,21 @@ No more wasting time thinking "What should I name this branch...?"
 | Icons | react-icons |
 | Styling | Vanilla CSS (CSS Variables, Glass Morphism) |
 
+### 🛡️ Architecture
+
+This app uses a **server-side proxy** (AWS Lambda Function URL) to securely call the OpenAI API. The API key is stored in AWS Systems Manager Parameter Store (SecureString) and is **never exposed to the browser**.
+
+```
+Browser → Lambda Function URL → OpenAI API
+           (API key stored in SSM)
+```
+
 ### 💻 Local Development
 
 #### Prerequisites
 
 - Node.js 18 or higher
+- AWS CLI configured
 - OpenAI API key
 
 #### Installation
@@ -101,18 +111,26 @@ npm install
 
 #### Environment Setup
 
-Create a `.env` file in the project root and set your OpenAI API key:
+Set up the OpenAI API key as an Amplify secret:
 
-```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
+```bash
+# Start Amplify sandbox (deploys Lambda to AWS)
+npx ampx sandbox
+
+# Set the secret (in another terminal)
+npx ampx sandbox secret set OPENAI_API_KEY
 ```
 
-> **Warning**  
-> Keep your API key secure and never commit `.env` files to Git.
+> **Note**
+> The API key is securely stored in AWS SSM Parameter Store, not in `.env` files or frontend code.
 
 #### Run Development Server
 
 ```bash
+# Terminal 1: Amplify sandbox (backend)
+npx ampx sandbox
+
+# Terminal 2: Vite dev server (frontend)
 npm run dev
 ```
 
@@ -135,6 +153,13 @@ npm run lint
 
 ```
 branch-name-generator/
+├── amplify/
+│   ├── backend.ts                    # Amplify Gen 2 backend definition
+│   └── functions/
+│       └── generate-branch-names/
+│           ├── handler.ts            # Lambda handler (OpenAI proxy)
+│           ├── resource.ts           # Function definition with secrets
+│           └── package.json
 ├── public/
 │   ├── favicon.png
 │   ├── apple-touch-icon.png
@@ -142,15 +167,16 @@ branch-name-generator/
 │   └── screenshot.png
 ├── src/
 │   ├── components/
-│   │   ├── BranchGenerator.jsx  # Main component
-│   │   ├── OptionsPanel.jsx     # Options configuration panel
-│   │   └── ResultList.jsx       # Results display list
+│   │   ├── BranchGenerator.jsx       # Main component
+│   │   ├── OptionsPanel.jsx          # Options configuration panel
+│   │   └── ResultList.jsx            # Results display list
 │   ├── services/
-│   │   └── openai.js            # OpenAI API integration
+│   │   └── openai.js                 # Lambda Function URL client
 │   ├── App.jsx
 │   ├── App.css
 │   └── main.jsx
 ├── index.html
+├── amplify.yml
 ├── package.json
 └── vite.config.js
 ```
@@ -219,11 +245,21 @@ MIT
 | アイコン | react-icons |
 | スタイリング | Vanilla CSS (CSS Variables, Glass Morphism) |
 
+### 🛡️ アーキテクチャ
+
+本アプリは **サーバーサイドプロキシ**（AWS Lambda Function URL）を経由してOpenAI APIを呼び出します。APIキーはAWS Systems Manager Parameter Store（SecureString）に保管され、**ブラウザには一切露出しません**。
+
+```
+ブラウザ → Lambda Function URL → OpenAI API
+            (APIキーはSSMに保管)
+```
+
 ### 💻 ローカル開発
 
 #### 必要要件
 
 - Node.js 18以上
+- AWS CLI 設定済み
 - OpenAI APIキー
 
 #### インストール
@@ -239,18 +275,26 @@ npm install
 
 #### 環境設定
 
-プロジェクトルートに`.env`ファイルを作成し、OpenAI APIキーを設定します。
+OpenAI APIキーをAmplifyシークレットとして設定します：
 
-```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
+```bash
+# Amplify sandboxを起動（LambdaをAWSにデプロイ）
+npx ampx sandbox
+
+# シークレットを設定（別のターミナルで）
+npx ampx sandbox secret set OPENAI_API_KEY
 ```
 
-> **Warning**  
-> APIキーは外部に漏洩しないよう厳重に管理してください。`.env`ファイルはGitにコミットしないでください。
+> **Note**
+> APIキーはAWS SSM Parameter Storeに安全に保管されます。`.env`ファイルやフロントエンドコードには含まれません。
 
 #### 開発サーバーの起動
 
 ```bash
+# ターミナル1: Amplify sandbox（バックエンド）
+npx ampx sandbox
+
+# ターミナル2: Vite開発サーバー（フロントエンド）
 npm run dev
 ```
 
@@ -273,6 +317,13 @@ npm run lint
 
 ```
 branch-name-generator/
+├── amplify/
+│   ├── backend.ts                    # Amplify Gen 2 バックエンド定義
+│   └── functions/
+│       └── generate-branch-names/
+│           ├── handler.ts            # Lambdaハンドラー（OpenAIプロキシ）
+│           ├── resource.ts           # 関数定義（シークレット設定）
+│           └── package.json
 ├── public/
 │   ├── favicon.png
 │   ├── apple-touch-icon.png
@@ -280,15 +331,16 @@ branch-name-generator/
 │   └── screenshot.png
 ├── src/
 │   ├── components/
-│   │   ├── BranchGenerator.jsx  # メインコンポーネント
-│   │   ├── OptionsPanel.jsx     # オプション設定パネル
-│   │   └── ResultList.jsx       # 結果表示リスト
+│   │   ├── BranchGenerator.jsx       # メインコンポーネント
+│   │   ├── OptionsPanel.jsx          # オプション設定パネル
+│   │   └── ResultList.jsx            # 結果表示リスト
 │   ├── services/
-│   │   └── openai.js            # OpenAI API連携
+│   │   └── openai.js                 # Lambda Function URLクライアント
 │   ├── App.jsx
 │   ├── App.css
 │   └── main.jsx
 ├── index.html
+├── amplify.yml
 ├── package.json
 └── vite.config.js
 ```
@@ -332,96 +384,6 @@ MIT
 | Icons | react-icons |
 | Styling | Vanilla CSS (CSS Variables, Glass Morphism) |
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18以上
-- OpenAI APIキー
-
-### Installation
-
-```bash
-# リポジリをクローン
-git clone https://github.com/your-username/branch-name-generator.git
-cd branch-name-generator
-
-# 依存関係をインストール
-npm install
-```
-
-### Environment Setup
-
-プロジェクトルートに`.env`ファイルを作成し、OpenAI APIキーを設定します。
-
-```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
-```
-
-> **Warning**
-> APIキーは外部に漏洩しないよう厳重に管理してください。`.env`ファイルはGitにコミットしないでください。
-
-### Run Development Server
-
-```bash
-npm run dev
-```
-
-ブラウザで表示されるURL（通常は `http://localhost:5173`）にアクセスしてください。
-
-### Other Commands
-
-```bash
-# 本番ビルド
-npm run build
-
-# ビルドプレビュー
-npm run preview
-
-# ESLint実行
-npm run lint
-```
-
-## Usage
-
-1. **タスク説明を入力**
-   「ログイン画面のバリデーション修正」や「Add user authentication」のように入力
-
-2. **オプション設定**
-   - Prefixを選択（`feature/`, `bugfix/`, `hotfix/`, `fix/`、またはカスタム）
-   - Case StyleとWord Separatorを選択
-   - 必要に応じてチケット番号を設定
-
-3. **生成**
-   「Generate」ボタンをクリック、または `Cmd + Enter` で生成
-
-4. **コピー**
-   気に入ったブランチ名の右側にあるコピーアイコンをクリック
-
-## Project Structure
-
-```
-branch-name-generator/
-├── public/
-│   ├── favicon.png
-│   ├── apple-touch-icon.png
-│   ├── og-image.png
-│   └── screenshot.png
-├── src/
-│   ├── components/
-│   │   ├── BranchGenerator.jsx  # メインコンポーネント
-│   │   ├── OptionsPanel.jsx     # オプション設定パネル
-│   │   └── ResultList.jsx       # 結果表示リスト
-│   ├── services/
-│   │   └── openai.js            # OpenAI API連携
-│   ├── App.jsx
-│   ├── App.css
-│   └── main.jsx
-├── index.html
-├── package.json
-└── vite.config.js
-```
-
 ## License
 
 MIT
@@ -429,5 +391,5 @@ MIT
 ---
 
 <p align="center">
-  Powered by OpenAI | Built with React & Vite
+  Powered by OpenAI | Built with React, Vite & AWS Amplify
 </p>
